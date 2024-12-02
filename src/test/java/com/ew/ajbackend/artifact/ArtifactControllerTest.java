@@ -1,14 +1,15 @@
 package com.ew.ajbackend.artifact;
 
 import com.ew.ajbackend.artifact.dto.ArtifactDto;
-import com.ew.ajbackend.artifact.system.StatusCode;
+import com.ew.ajbackend.system.StatusCode;
+import com.ew.ajbackend.system.exception.ObjectNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
-import org.mockito.Mock;
+
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,10 +21,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
-import static com.ew.ajbackend.artifact.system.StatusCode.SUCCESS;
+import static com.ew.ajbackend.system.StatusCode.SUCCESS;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -191,7 +191,7 @@ class ArtifactControllerTest {
                     null);
             String json = this.objectMapper.writeValueAsString(artifactDto);
 
-            given(this.artifactService.update(eq("1250808601744904192"), Mockito.any(Artifact.class))).willThrow(new ArtifactNotFoundException("1250808601744904192"));
+            given(this.artifactService.update(eq("1250808601744904192"), Mockito.any(Artifact.class))).willThrow(new ObjectNotFoundException("artifact","1250808601744904192"));
 
             // When and then
             this.mockMvc.perform(put("/api/v1/artifacts/1250808601744904192").contentType(MediaType.APPLICATION_JSON).content(json).accept(MediaType.APPLICATION_JSON))
@@ -217,7 +217,7 @@ class ArtifactControllerTest {
     @Test
     void testDeleteArtifactErrorWithNonExistentId() throws Exception {
         // Given
-        doThrow(new ArtifactNotFoundException("1250808601744904191")).when(this.artifactService).delete("1250808601744904191");
+        doThrow(new ObjectNotFoundException("artifact","1250808601744904191")).when(this.artifactService).delete("1250808601744904191");
 
         // When and then
         this.mockMvc.perform(delete("/api/v1/artifacts/1250808601744904191").accept(MediaType.APPLICATION_JSON))

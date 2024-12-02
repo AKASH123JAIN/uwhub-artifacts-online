@@ -2,6 +2,7 @@ package com.ew.ajbackend.artifact;
 
 
 import com.ew.ajbackend.artifact.utils.IdWorker;
+import com.ew.ajbackend.system.exception.ObjectNotFoundException;
 import com.ew.ajbackend.wizard.Wizard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,7 +118,7 @@ public class ArtifactServiceTest {
         });
 
         // Then
-        assertThat(thrown).isInstanceOf(ArtifactNotFoundException.class).
+        assertThat(thrown).isInstanceOf(ObjectNotFoundException.class).
                 hasMessage("Could not find artifact with Id 1234 :(");
 
     }
@@ -192,7 +193,7 @@ public class ArtifactServiceTest {
         given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
         // When & Then
-        assertThrows(ArtifactNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
             artifactService.update("1250808601744904192", update);
         });
 
@@ -223,7 +224,7 @@ public class ArtifactServiceTest {
         given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
         // When
-        assertThrows(ArtifactNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
             artifactService.delete("1250808601744904192");
         });
 

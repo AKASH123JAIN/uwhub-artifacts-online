@@ -1,4 +1,4 @@
-package com.ew.ajbackend.artifact.system;
+package com.ew.ajbackend.system;
 
 import com.ew.ajbackend.artifact.Artifact;
 import com.ew.ajbackend.artifact.ArtifactRepository;

@@ -1,4 +1,4 @@
-package com.ew.ajbackend.artifact.system;
+package com.ew.ajbackend.system;
 
 public class StatusCode {
 

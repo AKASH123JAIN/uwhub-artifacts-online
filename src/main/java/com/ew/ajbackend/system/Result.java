@@ -1,4 +1,4 @@
-package com.ew.ajbackend.artifact.system;
+package com.ew.ajbackend.system;
 /**
  * This class defines the schema of the response. It is used to encapsulate data prepared by
  * the server side, this object will be serialized to JSON before sent back to the client end.

@@ -1,8 +1,7 @@
-package com.ew.ajbackend.artifact.system.exception;
+package com.ew.ajbackend.system.exception;
 
-import com.ew.ajbackend.artifact.ArtifactNotFoundException;
-import com.ew.ajbackend.artifact.system.Result;
-import com.ew.ajbackend.artifact.system.StatusCode;
+import com.ew.ajbackend.system.Result;
+import com.ew.ajbackend.system.StatusCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -18,12 +17,11 @@ import java.util.Map;
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
-    @ExceptionHandler(ArtifactNotFoundException.class)
-    Result handleArtifactNotFoundException(ArtifactNotFoundException ex){
+    @ExceptionHandler(ObjectNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    Result handleObjectNotFoundException(ObjectNotFoundException ex){
         return new Result(false, StatusCode.NOT_FOUND, ex.getMessage());
-
     }
-
     /**
      * This handles invalid inputs.
      *
