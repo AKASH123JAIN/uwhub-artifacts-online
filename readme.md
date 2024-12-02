@@ -1,1 +1,0 @@
-# Project to maintain artifacts for UWHUB
