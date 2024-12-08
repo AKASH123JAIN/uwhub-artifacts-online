@@ -2,6 +2,8 @@ package com.ew.ajbackend.system;
 
 import com.ew.ajbackend.artifact.Artifact;
 import com.ew.ajbackend.artifact.ArtifactRepository;
+import com.ew.ajbackend.uwhubuser.UWHubUser;
+import com.ew.ajbackend.uwhubuser.UserRepository;
 import com.ew.ajbackend.wizard.Wizard;
 import com.ew.ajbackend.wizard.WizardRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -16,10 +18,12 @@ public class DBDataInitializer implements CommandLineRunner {
 
     private final ArtifactRepository artifactRepository;
     private final WizardRepository wizardRepository;
+    private final UserRepository userRepository;
 
-    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository) {
+    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository) {
         this.artifactRepository = artifactRepository;
         this.wizardRepository = wizardRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -83,6 +87,32 @@ public class DBDataInitializer implements CommandLineRunner {
         // Saving wizards Alone willl save all the associated artifacts
 
         artifactRepository.save(a6);
+
+        // Create some users.
+        UWHubUser u1 = new UWHubUser();
+        u1.setId(1);
+        u1.setUsername("Amith");
+        u1.setPassword("123456");
+        u1.setEnabled(true);
+        u1.setRoles("admin user");
+
+        UWHubUser u2 = new UWHubUser();
+        u2.setId(2);
+        u2.setUsername("Terrie");
+        u2.setPassword("654321");
+        u2.setEnabled(true);
+        u2.setRoles("user");
+
+        UWHubUser u3 = new UWHubUser();
+        u3.setId(3);
+        u3.setUsername("Michael Beer");
+        u3.setPassword("qwerty");
+        u3.setEnabled(false);
+        u3.setRoles("user");
+
+        this.userRepository.save(u1);
+        this.userRepository.save(u2);
+        this.userRepository.save(u3);
 
 
 
